@@ -27,19 +27,23 @@ with negociacao as (
 		, cotacao_atual as cotacao_unitario
 	FROM personal_investments.stg_cotacao
 )
-select        
-	data_do_negocio
-    , tipo_de_movimentacao
-    , mercado
-    , prazo_vencimento
-    , instituicao
-    , codigo
-    , codigo_de_negociacao
-    , is_fi
-    , quantidade
-    , custo
-    , preco as custo_unitario
-    , cotacao_unitario
-	, (cotacao_unitario * quantidade) as cotacao_atualizada
-from negociacao
-left join cotacao using (codigo_de_negociacao)
+, tbl as (
+	select        
+        data_do_negocio
+        , tipo_de_movimentacao
+        , mercado
+        , prazo_vencimento
+        , instituicao
+        , codigo
+        , codigo_de_negociacao
+        , is_fi
+        , quantidade
+        , custo
+        , preco as custo_unitario
+        , cotacao_unitario
+        , (cotacao_unitario * quantidade) as cotacao_atualizada
+    from negociacao
+    left join cotacao using (codigo_de_negociacao)
+   )
+select *
+from tbl
