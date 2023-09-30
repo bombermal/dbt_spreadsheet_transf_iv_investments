@@ -27,6 +27,14 @@ with negociacao as (
 		, cotacao_atual as cotacao_unitario
 	FROM personal_investments.stg_cotacao
 )
+, eventos as (
+	SELECT 
+		agrupamento
+		, desdobramento
+		, data_evento
+		, codigo_de_negociacao
+	FROM personal_investments.stg_eventos
+)
 , tbl as (
 	select        
         data_do_negocio
